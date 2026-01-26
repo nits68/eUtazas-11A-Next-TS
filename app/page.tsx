@@ -1,8 +1,11 @@
 import Megoldás from "@/app/Megoldás";
+import BarChart from "@/app/components/BarChart";
 
 export default function HomePage() {
   const m: Megoldás = new Megoldás("utasadat.txt");
-  m.figyelmeztetéseketKiír("figyelmeztetes.txt")
+  const ervenyes = m.felszállókSzáma - m.érvénytelenFelszállás;
+  const ervenytelen = m.érvénytelenFelszállás;
+  m.figyelmeztetéseketKiír("figyelmeztetes.txt");
   return (
     <div>
       <div>Felszállók száma: {m.felszállókSzáma}</div>
@@ -13,6 +16,7 @@ export default function HomePage() {
       <div>Max utas első megálló - map: {m.maxKeresésesMap.maxMegálló}</div>
       <div>Ingyenes utazók száma: {m.ingyenesenUtazók}</div>
       <div>Kedvezményesen utazók száma: {m.kedvezményesenUtazók}</div>
+      <BarChart ervenyes={ervenyes} ervenytelen={ervenytelen} />
     </div>
   );
 }
